@@ -7,10 +7,6 @@ import "./Pool.sol";
 contract Factory is IFactory {
     mapping(address => mapping(address => address[])) public pools;
 
-    // parameters 是用于 Pool 创建时回调获取参数用
-    // 不是用构造函数是为了避免构造函数变化，那样会导致 Pool 合约地址不能按照参数计算出来
-    // 具体参考 https://docs.openzeppelin.com/cli/2.8/deploying-with-create2
-    // new_address = hash(0xFF, sender, salt, bytecode)
     Parameters public override parameters;
 
     function sortToken(
@@ -37,11 +33,6 @@ contract Factory is IFactory {
         return pools[token0][token1][index];
     }
 
-    // 先调用 getPools 获取当前 token0 token1 的所有 pool
-    // 然后判断是否已经存在 tickLower tickUpper fee 相同的 pool
-    // 如果存在就直接返回
-    // 如果不存在就创建一个新的 pool
-    // 然后记录到 pools 中
     function createPool(
         address tokenA,
         address tokenB,
