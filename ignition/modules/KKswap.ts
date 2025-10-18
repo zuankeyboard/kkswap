@@ -1,6 +1,6 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const kkswapModule = buildModule("kkswap", (m) => {
+const KKswapModule = buildModule("KKswap", (m) => {
     const poolManager = m.contract("PoolManager");
     const swapRouter = m.contract("SwapRouter", [poolManager]);
     const positionManager = m.contract("PositionManager", [poolManager]);
@@ -8,4 +8,4 @@ const kkswapModule = buildModule("kkswap", (m) => {
     return { poolManager, swapRouter, positionManager };
 });
 
-export default kkswapModule;
+export default KKswapModule;
